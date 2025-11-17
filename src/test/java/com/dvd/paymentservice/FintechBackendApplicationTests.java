@@ -1,4 +1,4 @@
-package com.dvd.fintech_backend;
+package com.dvd.paymentservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
