@@ -1,11 +1,14 @@
 package com.dvd.paymentservice.repositories;
+
 import com.dvd.paymentservice.models.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
-@Repository
+import java.time.LocalDateTime;
+
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-   @Query("SELECT COUNT(t)FROM transaction t WHERE t.senderAccount = :senderAccount AND t.createAt > CURRENT_TIMESTAMP - INTERVAL 1 MINUTE")
-    long countRecentTransactions(String senderAccount);
+    @Query("SELECT COUNT(t) FROM Transaction t WHERE t.senderAccount = :senderAccount AND t.createdAt > :cutoff")
+    long countRecentTransactions(@Param("senderAccount") String senderAccount,
+                                 @Param("cutoff") LocalDateTime cutoff);
 }
